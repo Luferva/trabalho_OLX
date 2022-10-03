@@ -13,9 +13,9 @@
 <?php
     require('config.php');
     require('verifica.php');
-    include('funcao.php')
+    include('funcao.php');
 
-    if ($_SESSION["UsuarioNivel"] != "ADM") echo "<script>alert('Você não é Administrador!');top.location.href='menu.php';</script>";
+   if ($_SESSION["UsuarioNivel"] != "ADM") echo "<script>alert('Você não é Administrador!');top.location.href='menu.php';</script>"; 
 
      if(@$_REQUEST['botao'] =="Gravar")
     {
@@ -71,5 +71,6 @@
         <input type=submit name=botao value=Deletar >   
 </form>
 <br>
+    
 </body>
 </html>

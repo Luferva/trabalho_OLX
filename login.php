@@ -8,24 +8,6 @@
 
 <body>
 
-<div>
-    <h1>Seja Bem-vindo</h1>
-    <br>
-</div>
-
-<form action=# method=post>
-<fieldset>
-    <div>
-        <label><strong>Login:</strong></label>
-        <input type=text name=login placeholder= "Digite seu login"><br>
-    </div>
-    <div>
-        <label><strong>Senha:</strong></label> 
-        <input type=password name=senha placeholder= "Digite sua senha"><br>
-        <input type=submit name=botao value=Entrar>
-    </div>
-</fieldset>
-
 <?php
 include ('config.php');
 session_start();
@@ -60,5 +42,25 @@ if (@$_REQUEST['botao']=="Entrar")
 	
 }
 ?>
+
+<div>
+    <h1>Seja Bem-vindo</h1>
+    <br>
+</div>
+
+<form action=# method=post>
+<fieldset>
+    <div>
+        <label><strong>Login:</strong></label>
+        <input type=text name=login placeholder= "Digite seu login"><br>
+    </div>
+    <div>
+        <label><strong>Senha:</strong></label> 
+        <input type=password name=senha placeholder= "Digite sua senha"><br>
+        <input type=submit name=botao value=Entrar>
+    </div>
+</fieldset>
+
+
 </body>
 </html>
