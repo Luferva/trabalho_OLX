@@ -13,8 +13,9 @@
 <?php
     require('config.php');
     require('verifica.php');
+    include('funcao.php')
 
-    if ($_SESSION["UsuarioNivel"] != "ADM") echo "<script>alert('Você não é Administrador!');top.location.href='menu.php';</script>"; 
+    if ($_SESSION["UsuarioNivel"] != "ADM") echo "<script>alert('Você não é Administrador!');top.location.href='menu.php';</script>";
 
      if(@$_REQUEST['botao'] =="Gravar")
     {
@@ -22,10 +23,10 @@
         $nivel = $_POST['nivel'];
         $login = $_POST['login'];
         $senha = md5($_POST['senha']);
-
-        gravaLog ($id_usuario, date("Y-m-d h:m:s"),'Usuario', $nome, 'criou');
+        $id_usuario = 1;
+       gravaLog ($id_usuario, date("Y-m-d h:m:s"),'Usuario', $nome, 'criou');
         
-        $query = "INSERT INTO usuario (nome, nivel, login, senha) values ('$nome', '$nivel', '$login', '$senha')";
+        $query = "INSERT INTO usuario (nivel, login, senha, nome) values ('$nivel', '$login', '$senha', '$nome')";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
     }

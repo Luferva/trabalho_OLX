@@ -1,6 +1,6 @@
 <?php
 $con = mysqli_connect('localhost','root','');
-$db = mysqli_select_db($con, 'sistema');
+$db = mysqli_select_db($con, 'olx');
 	
 if(!$con || !$db)
 {

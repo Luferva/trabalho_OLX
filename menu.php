@@ -7,7 +7,11 @@
 </head>
 
 <body>
+<?php
+require('config.php');
+require('verifica.php');
 
+?>
 <nav>
     <a href="cadastro_anun.php">Cadastrar Anúncios</a>
     <?php
