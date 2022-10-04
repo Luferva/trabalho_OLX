@@ -23,8 +23,21 @@
         $nivel = $_POST['nivel'];
         $login = $_POST['login'];
         $senha = md5($_POST['senha']);
-        $id_usuario = 1;
+        $id_usuario = ;
        gravaLog ($id_usuario, date("Y-m-d h:m:s"),'Usuario', $nome, 'criou');
+
+       $uploaddir = 'uploads/';
+            $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+
+            echo '<pre>';
+            if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+               echo "Arquivo válido e enviado com sucesso.\n";
+            } else {
+              echo "Possível ataque de upload de arquivo!\n";
+            }
+            echo 'Aqui está mais informações de debug:';
+        print_r($_FILES);
+        print "</pre>";
         
         $query = "INSERT INTO usuario (nivel, login, senha, nome) values ('$nivel', '$login', '$senha', '$nome')";
         $result = mysqli_query($con, $query);
@@ -59,6 +72,10 @@
         <div>
             <label><strong>Senha:</strong></label>
             <input type=password name=senha placeholder= "Digite senha"><br>
+        </div>
+        <div>
+            <label><strong>Avatar:</strong></label>
+            <input type=file name=userfile ><br>
         </div>
         <input type=submit name=botao value=Gravar>
 </form> 

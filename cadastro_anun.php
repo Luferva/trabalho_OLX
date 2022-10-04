@@ -16,11 +16,13 @@
 
      if(@$_REQUEST['botao'] =="Gravar")
     {
-        $nome = $_POST['nome'];
         $categoria = $_POST['categoria'];
         $valor = $_POST['valor'];
+        $descricao = $_POST['descricao'];
+        $status = 'N';
+        $nome = $_POST['nome'];
         
-        $query = "INSERT INTO anuncio (nome, id_categoria, valor, id_usuario) values ('$nome', '$categoria', '$valor', $id_usuario)";
+        $query = "INSERT INTO anuncio (id_categoria, id_usuario, valor, descricao, status, nome) values ('$categoria', '$id_usuario', '$valor', $descricao, $status, '$nome')";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
     }
@@ -61,6 +63,10 @@
         <div>
             <label><strong>Valor:</strong></label>
             <input type=text name=valor placeholder= "Digite valor do produto"><br>
+        </div>
+        <div>
+            <label><strong>Descrição:</strong></label>
+            <input type=text name=descricao placeholder= "Descrição do produto"><br>
         </div>
         <input type=submit name=botao value=Gravar>
 </form> 
