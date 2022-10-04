@@ -23,23 +23,19 @@
         $nivel = $_POST['nivel'];
         $login = $_POST['login'];
         $senha = md5($_POST['senha']);
-        $id_usuario = ;
+        
        gravaLog ($id_usuario, date("Y-m-d h:m:s"),'Usuario', $nome, 'criou');
 
        $uploaddir = 'uploads/';
-            $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-
-            echo '<pre>';
-            if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-               echo "Arquivo válido e enviado com sucesso.\n";
-            } else {
-              echo "Possível ataque de upload de arquivo!\n";
-            }
-            echo 'Aqui está mais informações de debug:';
-        print_r($_FILES);
-        print "</pre>";
-        
-        $query = "INSERT INTO usuario (nivel, login, senha, nome) values ('$nivel', '$login', '$senha', '$nome')";
+       $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+       
+       if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+		    echo "Arquivo válido e enviado com sucesso.\n";
+	    } else {
+		    echo "Possível ataque de upload de arquivo!\n";
+	    }
+            
+        $query = "INSERT INTO usuario (nivel, login, senha, nome, avatar) values ('$nivel', '$login', '$senha', '$nome', '{$_FILES["userfile"]["name"]}')";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
     }
@@ -56,7 +52,7 @@
 
 ?>
 
-<form action="#" method="POST">
+<form enctype="multipart/form-data" action="cadastro_user.php" method="POST">
         <div>
             <label><strong>Nome:</strong></label>
             <input type=text name=nome placeholder= "Digite nome"><br>
@@ -80,7 +76,7 @@
         <input type=submit name=botao value=Gravar>
 </form> 
 <br>
-<form action="#" method="POST">
+<form action="cadastro_user.php" method="POST">
         <div>
             <label><strong>ID</strong>:</label>
             <input type="text" name= "id" placeholder="Digite ID que deseja excluir">
