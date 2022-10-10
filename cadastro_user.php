@@ -17,7 +17,21 @@
 
    if ($_SESSION["UsuarioNivel"] != "ADM") echo "<script>alert('Você não é Administrador!');top.location.href='menu.php';</script>"; 
 
-     if(@$_REQUEST['botao'] =="Gravar")
+
+   if (@$_REQUEST['id'] and !$_REQUEST['botao'])
+   {
+       $query = "
+           SELECT * FROM usuario WHERE id='{$_REQUEST['id']}'
+       ";
+       $result = mysqli_query($con, $query);
+       $row = mysqli_fetch_assoc($result);
+       //echo "<br> $query";	
+       foreach( $row as $key => $value )
+       {
+           $_POST[$key] = $value;
+       }
+   }
+    if(@$_REQUEST['botao'] =="Gravar")
     {
         $nome = $_POST['nome'];
         $nivel = $_POST['nivel'];
@@ -34,10 +48,26 @@
 	    } else {
 		    echo "Possível ataque de upload de arquivo!\n";
 	    }
-            
+        if (!$_REQUEST['id'])
+        {
         $query = "INSERT INTO usuario (nivel, login, senha, nome, avatar) values ('$nivel', '$login', '$senha', '$nome', '{$_FILES["userfile"]["name"]}')";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
+        }else{
+            $insere = "UPDATE usuario SET 
+                        nome = '{$_POST['nome']}'
+                        , sexo = '{$_POST['nivel']}'
+                        , login = '{$_POST['login']}'
+                        , senha = '{$_POST['senha']}'
+                        WHERE id = '{$_REQUEST['id']}'
+                    ";
+            $result_update = mysqli_query($con, $insere);
+    
+            if ($result_update) echo "<h2> Registro atualizado com sucesso!!!</h2>";
+            else echo "<h2> Nao consegui atualizar!!!</h2>";
+            
+        }
+
     }
     if (@$_REQUEST['botao'] =="Deletar")
     {
@@ -45,7 +75,7 @@
 
         gravaLog ($id_usuario, date("Y-m-d h:m:s"),'Usuario', $id, 'deletou');
 
-        $query = "DELETE FROM categoria WHERE id = '$id'";
+        $query = "DELETE FROM usuario WHERE id = '$id'";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
     }
@@ -85,5 +115,7 @@
 </form>
 <br>
     
+<div><a href="menu.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+
 </body>
 </html>

@@ -13,8 +13,22 @@
 <?php
     require('config.php');
     require('verifica.php');
+    $id = @$_REQUEST['id'];
 
-     if(@$_REQUEST['botao'] =="Gravar")
+    if (@$_REQUEST['id'] and !$_REQUEST['botao'])
+   {
+       $query = "
+           SELECT * FROM cadastro_anun WHERE id='{$_REQUEST['id']}'
+       ";
+       $result = mysqli_query($con, $query);
+       $row = mysqli_fetch_assoc($result);
+       //echo "<br> $query";	
+       foreach( $row as $key => $value )
+       {
+           $_POST[$key] = $value;
+       }
+   }
+    if(@$_REQUEST['botao'] =="Gravar")
     {
         $categoria = $_POST['categoria'];
         $valor = $_POST['valor'];
@@ -22,7 +36,7 @@
         $status = 'N';
         $nome = $_POST['nome'];
         
-        $query = "INSERT INTO anuncio (id_categoria, id_usuario, valor, descricao, status, nome) values ('$categoria', '$id_usuario', '$valor', $descricao, $status, '$nome')";
+        $query = "INSERT INTO anuncio (id_categoria, id_usuario, valor, descricao, status, nome) values ('$categoria', '$id_usuario', '$valor', '$descricao', '$status', '$nome')";
         $result = mysqli_query($con, $query);
         if(!$result) echo mysqli_error($con);
     }
@@ -64,6 +78,12 @@
             <label><strong>Valor:</strong></label>
             <input type=text name=valor placeholder= "Digite valor do produto"><br>
         </div>
+        <?php if ($_SESSION["UsuarioNivel"] == "ADM"){?>
+        <div>
+            <label><strong>Status:</strong></label>
+            <input type=radio name=status value=S><strong> Sim</strong><input type=radio name=status value=N><strong> Não</strong><br>
+        </div>
+        <?php }?>
         <div>
             <label><strong>Descrição:</strong></label>
             <input type=text name=descricao placeholder= "Descrição do produto"><br>
@@ -79,5 +99,8 @@
         <input type=submit name=botao value=Deletar >   
 </form>
 <br>
+
+<div><a href="menu.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+
 </body>
 </html>

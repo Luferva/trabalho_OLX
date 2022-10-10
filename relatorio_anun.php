@@ -16,7 +16,7 @@
 <form action="relatorio_anun.php?botao=gravar" method="post" name="form1">
 <fieldset>
 <table width="95%" border="0" align="center">
-  <tr>
+  <tr bgcolor="#393FB8">
     <td width="18%" align="right"><strong>Nome</strong>:</td>
     <td width="26%"><input type="text" name="nome" placeholder= "Nome do anúncio" /></td>
     <td width="17%" align="right"><strong>Categoria</strong>:</td>
@@ -39,20 +39,22 @@
                 </select>
             </td>
     <td width="21%"><input type="submit" name="botao" value="Gerar" /></td>
+    <td><a href="menu.php"><img src=imagens/voltar.png alt="voltar pagina"></a></td>
   </tr>
 </table>
 </fieldset>
 </form>
 <br>
 
-<?php if ($_REQUEST['botao'] == "Gerar") { ?>
+<?php if (@$_REQUEST['botao'] == "Gerar") { ?>
 
 <table width="95%" border="1" align="center">
     <tr bgcolor="#393FB8">
         <th width="5%">ID</th>
-        <th width="30%">Categoria</th>
+        <th width="30%">Nome</th>
         <th width="5%">Valor</th>
-        <th width="10%">Descrição</th>
+        <th width="15%">Descrição</th>
+        <th width="15%">Opções</th>
     </tr>
 
     <?php
@@ -62,6 +64,9 @@
 	    $query = "SELECT *FROM anuncio WHERE id > 0 ";
         $query .= ($nome ? " AND nome LIKE '%$nome%' " : "");
         $query .= ($categoria ? " AND id_categoria = '$categoria' " : "");
+        if ($_SESSION["UsuarioNivel"] == "USER"){
+            $query .= (" AND status = 'S' ");
+        }
         $query .= " ORDER by id";
         $result = mysqli_query($con, $query);
 	    while ($coluna=mysqli_fetch_array($result)) 
@@ -71,10 +76,9 @@
     <tr>
       <th width="5%"><?php echo $coluna['id']; ?></th>
       <th width="30%"><?php echo $coluna['nome']; ?></th>
-      <th width="15%"><?php echo $coluna['idade']; ?></th>
-      <th width="15%"><?php echo $coluna['sexo']; ?></th>
-      <th width="30%"><?php echo $coluna['id_categoria']; ?></th>
-      <th width="25%"><?php echo $coluna['email']; ?></th>
+      <th width="15%"><?php echo $coluna['valor']; ?></th>
+      <th width="15%"><?php echo $coluna['descricao']; ?></th>
+      <th><a href="cadastro_anun.php?pag=cadastro_anun&id=<?php echo $coluna['id']; ?>">editar</a></th>
     </tr>
 
     <?php

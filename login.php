@@ -12,7 +12,6 @@
 include ('config.php');
 session_start();
 
-
 if (@$_REQUEST['botao']=="Entrar")
 {
 	$login = $_POST['login'];

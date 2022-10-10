@@ -56,6 +56,9 @@
         <input type=submit name=botao value=Deletar >   
 </form>
 <br>
+
+<div><a href="menu.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+
 </body>
 </html>
 
