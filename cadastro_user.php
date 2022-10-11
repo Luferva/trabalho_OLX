@@ -103,6 +103,7 @@
             <label><strong>Avatar:</strong></label>
             <input type=file name=userfile ><br>
         </div>
+        <input type="hidden" name="id" value="<?php echo @$_REQUEST['id'] ?>" />
         <input type=submit name=botao value=Gravar>
 </form> 
 <br>

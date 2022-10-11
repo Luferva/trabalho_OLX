@@ -12,6 +12,8 @@ require('config.php');
 require('verifica.php');
 
 ?>
+
+<img src="uploads/<?php echo $_SESSION["avatar"];?>">
 <nav>
     <a href="cadastro_anun.php">Cadastrar Anúncios</a>
     <?php if ($_SESSION["UsuarioNivel"] == "ADM"){?><a href="cadastro_cat.php">Cadastrar categoria</a><?php }?>

@@ -24,6 +24,7 @@ if (@$_REQUEST['botao']=="Entrar")
 		$_SESSION["id_usuario"]= $coluna["id"]; 
 		$_SESSION["nome_usuario"] = $coluna["login"]; 
 		$_SESSION["UsuarioNivel"] = $coluna["nivel"];
+		$_SESSION["avatar"] = $coluna["avatar"];
 
 		// para direcionar a páginas diferentes com base no nivel do usuário
 		$niv = $coluna['nivel'];
