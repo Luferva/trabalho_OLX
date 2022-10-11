@@ -26,13 +26,13 @@
                     $result = mysqli_query($con, $query);
                     if(!$result) echo mysqli_error($con);
                 ?>
-                <select name="categoria" >
+                <select name="id_categoria" >
                     <option value=""> ..:: selecione ::.. </option>
                     <?php
                         while( $row = mysqli_fetch_assoc($result) )
                         {
                     ?>
-                    <option value="<?php echo $row['id']; ?>" ><?php echo @$row['nome'] ?></option>
+                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria']?"selected":"" ?> ><?php echo @$row['nome'] ?></option>
                     <?php
                         }
                     ?>
@@ -59,7 +59,7 @@
 
     <?php
         $nome = $_POST['nome'];
-	    $categoria = $_POST['categoria'];
+	    $categoria = $_POST['id_categoria'];
 	
 	    $query = "SELECT *FROM anuncio WHERE id > 0 ";
         $query .= ($nome ? " AND nome LIKE '%$nome%' " : "");

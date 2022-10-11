@@ -14,6 +14,7 @@
     <?php
     require('config.php');
     require('verifica.php');
+
     $id = @$_REQUEST['id'];
 
     if (@$_REQUEST['botao'] == "Excluir") {
@@ -25,51 +26,47 @@
         if ($result_excluir) echo "<h2> Registro excluido com sucesso!!!</h2>";
         else echo "<h2> Nao consegui excluir!!!</h2>";
     }
-    if (@$_REQUEST['id'] and !$_REQUEST['botao'])
-{
-	$query = "
+    if (@$_REQUEST['id'] and @!$_REQUEST['botao']) {
+        $query = "
 		SELECT * FROM anuncio WHERE id='{$_REQUEST['id']}'
 	";
-	$result = mysqli_query($con, $query);
-	$row = mysqli_fetch_assoc($result);
-	//echo "<br> $query";	
-	foreach( $row as $key => $value )
-	{
-		$_POST[$key] = $value;
-	}
-}
-if (@$_REQUEST['botao'] == "Gravar") 
-{
-    if (!$_REQUEST['id'])
-	{
-        $status = 'N';
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        //echo "<br> $query";	
+        foreach ($row as $key => $value) {
+            $_POST[$key] = $value;
+        }
+    }
+    if (@$_REQUEST['botao'] == "Gravar") {
+        if (!$_REQUEST['id']) {
+           $status = 'N';
 
-		$insere = "INSERT into anuncio (id_categoria, id_usuario, valor, descricao, status, nome) VALUES ('{$_POST['categoria']}', '{$_SESSION["id_usuario"]}', '{$_POST['valor']}', {$_POST['descricao']},'$status', {$_POST['nome']})";
-		$result_insere = mysqli_query($con, $insere);
-		
-		if ($result_insere) echo "<h2> Registro inserido com sucesso!!!</h2>";
-		else echo "<h2> Nao consegui inserir!!!</h2>";
-		
-	} else 	
-	{
-		$insere = "UPDATE anuncio SET 
-					id_categoria = '{$_POST['categoria']}'
+            $insere = "INSERT into anuncio (id_categoria, id_usuario, valor, descricao, status, nome) VALUES ('{$_POST['id_categoria']}', '{$_SESSION['id_usuario']}', '{$_POST['valor']}', '{$_POST['descricao']}','$status', '{$_POST['nome']}')";
+            $result_insere = mysqli_query($con, $insere);
+
+            if ($result_insere) echo "<h2> Registro inserido com sucesso!!!</h2>";
+            else echo mysqli_error($con);//"<h2> Nao consegui inserir!!!</h2>";
+        } else {
+    
+            $insere = "UPDATE anuncio SET 
+					id_categoria = '{$_POST['id_categoria']}'
                     , valor = '{$_POST['valor']}'
 					, descricao = '{$_POST['descricao']}'
                     , status = '{$_POST['status']}'
                     , nome = '{$_POST['nome']}'
 					WHERE id = '{$_REQUEST['id']}'
 				";
-		$result_update = mysqli_query($con, $insere);
+            $result_update = mysqli_query($con, $insere);
 
-		if ($result_update) echo "<h2> Registro atualizado com sucesso!!!</h2>";
-		else echo "<h2> Nao consegui atualizar!!!</h2>";
-		
-	}
-}
+            if ($result_update) echo "<h2> Registro atualizado com sucesso!!!</h2>";
+            else echo "<h2> Nao consegui atualizar!!!</h2>";
+        }
+    }
+
     ?>
+    
 
-    <form action="cliente.php" method="POST">
+    <form action="cadastro_anun.php" method="POST">
         <div>
             <label><strong>Nome:</strong></label>
             <input type=text name=nome value="<?php echo @$_POST['nome']; ?>" placeholder="Digite nome do produto"><br>
@@ -81,12 +78,13 @@ if (@$_REQUEST['botao'] == "Gravar")
             $result = mysqli_query($con, $query);
             if (!$result) echo mysqli_error($con);
             ?>
-            <select name="categoria">
-                <option value="<?php echo @$_POST['nome']; ?>"> ..:: selecione ::.. </option>
+            <select name="id_categoria">
+                <option value=" "> ..:: selecione ::.. </option>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                    <option value="<?php echo $row['id']; ?>"><?php echo @$row['nome'] ?></option>
+                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria']?"selected":"" ?>><?php echo @$row['nome'] ?></option>
+                    
                 <?php
                 }
                 ?>
@@ -99,14 +97,15 @@ if (@$_REQUEST['botao'] == "Gravar")
         <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
             <div>
                 <label><strong>Status:</strong></label>
-                <input type=radio name=status value=S><strong> Sim</strong><input type=radio name=status value=N><strong> Não</strong><br>
+                <input type=radio name=status value=S <?php echo @$_POST['status'] == 'S'?" checked ":"" ?>><strong> Sim</strong><input type=radio name=status value=N <?php echo @$_POST['status'] == 'N'?" checked ":"" ?>><strong> Não</strong><br>
             </div>
-        <?php } ?>
+        <?php }else{?> <input type="hidden" name = status value=<?php echo @$_POST['status'];?>><?php }?>
         <div>
             <label><strong>Descrição:</strong></label>
-            <input type=text name=descricao value="<?php echo @$_POST['descricao']; ?>"placeholder="Descrição do produto"><br>
+            <input type=text name=descricao value="<?php echo @$_POST['descricao']; ?>" placeholder="Descrição do produto"><br>
         </div>
         <input type=submit name=botao value=Gravar>
+        <input type="hidden" name="id" value="<?php echo @$_REQUEST['id'] ?>" />
     </form>
     <br>
     <form action="#" method="POST">
