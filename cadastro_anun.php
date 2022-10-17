@@ -39,15 +39,15 @@
     }
     if (@$_REQUEST['botao'] == "Gravar") {
         if (!$_REQUEST['id']) {
-           $status = 'N';
+            $status = 'N';
 
             $insere = "INSERT into anuncio (id_categoria, id_usuario, valor, descricao, status, nome) VALUES ('{$_POST['id_categoria']}', '{$_SESSION['id_usuario']}', '{$_POST['valor']}', '{$_POST['descricao']}','$status', '{$_POST['nome']}')";
             $result_insere = mysqli_query($con, $insere);
 
-            if ($result_insere) echo "<h2> Registro inserido com sucesso!!!</h2>";
-            else echo mysqli_error($con);//"<h2> Nao consegui inserir!!!</h2>";
+            if ($result_insere) echo "<h2> Registro inserido com sucesso!!! </br> Foi mandado ao Administrador para aprovação</h2>";
+            else echo mysqli_error($con); //"<h2> Nao consegui inserir!!!</h2>";
         } else {
-    
+
             $insere = "UPDATE anuncio SET 
 					id_categoria = '{$_POST['id_categoria']}'
                     , valor = '{$_POST['valor']}'
@@ -64,7 +64,7 @@
     }
 
     ?>
-    
+
 
     <form action="cadastro_anun.php" method="POST">
         <div>
@@ -83,8 +83,8 @@
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria']?"selected":"" ?>><?php echo @$row['nome'] ?></option>
-                    
+                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria'] ? "selected" : "" ?>><?php echo @$row['nome'] ?></option>
+
                 <?php
                 }
                 ?>
@@ -97,9 +97,9 @@
         <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
             <div>
                 <label><strong>Status:</strong></label>
-                <input type=radio name=status value=S <?php echo @$_POST['status'] == 'S'?" checked ":"" ?>><strong> Sim</strong><input type=radio name=status value=N <?php echo @$_POST['status'] == 'N'?" checked ":"" ?>><strong> Não</strong><br>
+                <input type=radio name=status value=S <?php echo @$_POST['status'] == 'S' ? " checked " : "" ?>><strong> Sim</strong><input type=radio name=status value=N <?php echo @$_POST['status'] == 'N' ? " checked " : "" ?>><strong> Não</strong><br>
             </div>
-        <?php }else{?> <input type="hidden" name = status value=<?php echo @$_POST['status'];?>><?php }?>
+        <?php } else { ?> <input type="hidden" name=status value=<?php echo @$_POST['status']; ?>><?php } ?>
         <div>
             <label><strong>Descrição:</strong></label>
             <input type=text name=descricao value="<?php echo @$_POST['descricao']; ?>" placeholder="Descrição do produto"><br>
@@ -108,16 +108,16 @@
         <input type="hidden" name="id" value="<?php echo @$_REQUEST['id'] ?>" />
     </form>
     <br>
-    <form action="#" method="POST">
+    <form action="cadastro_anun.php" method="POST">
         <div>
             <label><strong>ID</strong>:</label>
             <input type="text" name="id" placeholder="Digite ID que deseja excluir">
         </div>
-        <input type=submit name=botao value=Deletar>
+        <input type=submit name=botao value=Excluir>
     </form>
     <br>
 
-    <div><a href="menu.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+    <div><a href="relatorio_anun.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
 
 </body>
 

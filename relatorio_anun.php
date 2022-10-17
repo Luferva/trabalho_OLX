@@ -54,6 +54,7 @@
         <th width="30%">Nome</th>
         <th width="5%">Valor</th>
         <th width="15%">Descrição</th>
+        <th width="15%">Status</th>
         <th width="15%">Opções</th>
     </tr>
 
@@ -78,6 +79,9 @@
       <th width="30%"><?php echo $coluna['nome']; ?></th>
       <th width="15%"><?php echo $coluna['valor']; ?></th>
       <th width="15%"><?php echo $coluna['descricao']; ?></th>
+     <?php if ($_SESSION["UsuarioNivel"] == "ADM"){?>
+            <th width="15%"><?php echo $coluna['status']; ?></th>
+     <?php }?>
       <th><a href="cadastro_anun.php?pag=cadastro_anun&id=<?php echo $coluna['id']; ?>">editar</a></th>
     </tr>
 
