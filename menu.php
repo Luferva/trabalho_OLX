@@ -14,7 +14,10 @@
     require('verifica.php');
     ?>
 
-     <h1>Bem Vindo ao OLX !!!</h1>   
+    <header><img src="imagens/olx.png" alt="Logo OLX"><br>
+    <h1>Bem Vindo ao OLX !!!</h1>
+    </header>
+
     <div id="profile">
         <img src="uploads/<?php echo $_SESSION["avatar"]; ?>" width="140"><br>
         <strong><?php echo ($_SESSION["nome_user"]) ?></strong><br>

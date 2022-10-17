@@ -1,18 +1,25 @@
 @charset "UTF-8";
 
+/*Paleta de Cores
+    #620DD9 - roxo
+    #6D0AD7 - roxo
+    #89BF80 - verde
+    #92D95F - verde
+    #F27405 - laranja
+*/
+
 body {
-    background-color: #AAAAFF;
+    background-color: #6D0AD7;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     color: black;
     margin-top: 2%;
-    justify-content: center;
-
+    text-align: center;
 }
 
 #profile {
     margin-left: 88%;
-    background-color: #9137D9;
+    background-color: #f88826;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px rgba(24, 21, 21, 0.247);
@@ -20,12 +27,24 @@ body {
 
 }
 
+div {
+    padding-bottom: 5px;
+}
+
 div>img {
     border-radius: 5px;
 }
 
+.voltar{
+    margin-left: 2%;
+}
+
+.voltar2{
+    margin-left: 0%;
+}
+
 nav {
-    background-color: #9137D9;
+    background-color: #f88826;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px rgba(24, 21, 21, 0.247);
@@ -44,6 +63,55 @@ nav>a {
 }
 
 nav>a:hover {
-    background-color: #14778D;
-    color: #AAAAFF;
+    background-color: #92D95F;
+    color: #fcfcfc;
+}
+
+fieldset {
+    border: 0;
+    width: 25px;
+    background-color: #f88826;
+    padding-top: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(24, 21, 21, 0.541);
+    margin-left: 41%;
+}
+
+#user{
+    margin-left: 37%;
+}
+
+.delete{
+    margin-left: 42%;
+}
+
+input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 0.2em;
+    border: 1px solid #620DD9;
+    box-shadow: 2px 2px 2px rgba(24, 21, 21, 0.541);
+}
+
+input:focus {
+    background-color: #620DD9;
+}
+
+label {
+    display: block;
+    text-align:justify;
+}
+
+label:hover {
+    color: #620DD9;
+}
+
+button {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(24, 21, 21, 0.541);
+}
+
+button:hover {
+    background-color: #620DD9;
 }

@@ -10,11 +10,25 @@
 
 <body>
 
-    <h1>Cadastro de Anúncios</h1>
-
     <?php
     require('config.php');
     require('verifica.php');
+    ?>
+
+    <header><img src="imagens/olx.png" alt="Logo OLX"><br>
+        <h1>Cadastro de Anúncios</h1>
+    </header>
+
+    <div id="profile">
+        <img src="uploads/<?php echo $_SESSION["avatar"]; ?>" width="140"><br>
+        <strong><?php echo ($_SESSION["nome_user"]) ?></strong><br>
+        <a href="logout.php"><img src="imagens/logout.png" alt="Logout" width="50"></a><br>
+
+    </div>
+
+    <br>
+
+    <?php
 
     $id = @$_REQUEST['id'];
 
@@ -68,57 +82,60 @@
 
 
     <form action="cadastro_anun.php" method="POST">
-        <div>
-            <label><strong>Nome:</strong></label>
-            <input type=text name=nome value="<?php echo @$_POST['nome']; ?>" placeholder="Digite nome do produto"><br>
-        </div>
-        <div>
-            <label><strong>Categoria:</strong></label>
-            <?php
-            $query = "SELECT id, nome FROM categoria ORDER BY nome";
-            $result = mysqli_query($con, $query);
-            if (!$result) echo mysqli_error($con);
-            ?>
-            <select name="id_categoria">
-                <option value=" "> ..:: selecione ::.. </option>
-                <?php
-                while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria'] ? "selected" : "" ?>><?php echo @$row['nome'] ?></option>
-
-                <?php
-                }
-                ?>
-            </select>
-        </div>
-        <div>
-            <label><strong>Valor:</strong></label>
-            <input type=text name=valor value="<?php echo @$_POST['valor']; ?>" placeholder="Digite valor do produto"><br>
-        </div>
-        <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
+        <fieldset>
             <div>
-                <label><strong>Status:</strong></label>
-                <input type=radio name=status value=S <?php echo @$_POST['status'] == 'S' ? " checked " : "" ?>><strong> Sim</strong><input type=radio name=status value=N <?php echo @$_POST['status'] == 'N' ? " checked " : "" ?>><strong> Não</strong><br>
+                <label><strong>Nome:</strong></label>
+                <input type=text name=nome value="<?php echo @$_POST['nome']; ?>" placeholder="Digite nome do produto"><br>
             </div>
-        <?php } else { ?> <input type="hidden" name=status value=<?php echo @$_POST['status']; ?>><?php } ?>
-        <div>
-            <label><strong>Descrição:</strong></label>
-            <input type=text name=descricao value="<?php echo @$_POST['descricao']; ?>" placeholder="Descrição do produto"><br>
-        </div>
-        <input type=submit name=botao value=Gravar>
-        <input type="hidden" name="id" value="<?php echo @$_REQUEST['id'] ?>" />
+            <div>
+                <label><strong>Categoria:</strong></label>
+                <?php
+                $query = "SELECT id, nome FROM categoria ORDER BY nome";
+                $result = mysqli_query($con, $query);
+                if (!$result) echo mysqli_error($con);
+                ?>
+                <select name="id_categoria">
+                    <option value=" "> ..:: selecione ::.. </option>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                        <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == @$_POST['id_categoria'] ? "selected" : "" ?>><?php echo @$row['nome'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+            <div>
+                <label><strong>Valor:</strong></label>
+                <input type=text name=valor value="<?php echo @$_POST['valor']; ?>" placeholder="Digite valor do produto"><br>
+            </div>
+            <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
+                <div>
+                    <label><strong>Status:</strong></label>
+                    <input type=radio name=status value=S <?php echo @$_POST['status'] == 'S' ? " checked " : "" ?>><strong> Sim</strong><input type=radio name=status value=N <?php echo @$_POST['status'] == 'N' ? " checked " : "" ?>><strong> Não</strong><br>
+                </div>
+            <?php } else { ?> <input type="hidden" name=status value=<?php echo @$_POST['status']; ?>><?php } ?>
+            <div>
+                <label><strong>Descrição:</strong></label>
+                <input type=text name=descricao value="<?php echo @$_POST['descricao']; ?>" placeholder="Descrição do produto"><br>
+            </div>
+            <input type=submit name=botao value=Gravar>
+            <input type="hidden" name="id" value="<?php echo @$_REQUEST['id'] ?>" />
+        </fieldset>
     </form>
     <br>
     <form action="cadastro_anun.php" method="POST">
-        <div>
-            <label><strong>ID</strong>:</label>
-            <input type="text" name="id" placeholder="Digite ID que deseja excluir">
-        </div>
-        <input type=submit name=botao value=Excluir>
+        <fieldset>
+            <div>
+                <label><strong>ID</strong>:</label>
+                <input type="text" name="id" placeholder="Digite ID que deseja excluir">
+            </div>
+            <input type=submit name=botao value=Excluir>
+        </fieldset>
     </form>
     <br>
 
-    <div><a href="relatorio_anun.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+    <div class="voltar2"><a href="relatorio_anun.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
 
 </body>
 
