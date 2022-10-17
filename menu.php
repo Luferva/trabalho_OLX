@@ -11,16 +11,18 @@
 require('config.php');
 require('verifica.php');
 ?>
-<div>
-    <img src="uploads/<?php echo $_SESSION["avatar"];?>" width="250"><br>
-    <strong><?php echo ($_SESSION["nome_user"]) ?></strong><br>
-    <a href="logout.php"><img src="imagens/download (1).png" alt="Logout"></a>
-</div>
+
 <nav>
     <a href="cadastro_anun.php">Cadastrar Anúncios</a>
     <?php if ($_SESSION["UsuarioNivel"] == "ADM"){?><a href="cadastro_cat.php">Cadastrar categoria</a><?php }?>
     <a href="cadastro_user.php">Cadastrar Usuário</a>
     <a href="relatorio_anun.php">Relátorio de Anúncio</a>
+    <div >
+        <img src="uploads/<?php echo $_SESSION["avatar"];?>" width="100" >
+        <a href="logout.php"><img src="imagens/logout.png" alt="Logout" width="50"></a>
+        <strong><?php echo ($_SESSION["nome_user"]) ?></strong><br>
+    </div>
+    
 </nav>  
 
 </body>
