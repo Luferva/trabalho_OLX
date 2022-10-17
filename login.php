@@ -22,6 +22,7 @@ if (@$_REQUEST['botao']=="Entrar")
 	while ($coluna=mysqli_fetch_array($result)) 
 	{
 		$_SESSION["id_usuario"]= $coluna["id"]; 
+		$_SESSION["nome_user"] = $coluna["nome"];
 		$_SESSION["nome_usuario"] = $coluna["login"]; 
 		$_SESSION["UsuarioNivel"] = $coluna["nivel"];
 		$_SESSION["avatar"] = $coluna["avatar"];
