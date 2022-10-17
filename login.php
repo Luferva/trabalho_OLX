@@ -11,7 +11,7 @@
 <body>
 
 	<header><img src="imagens/olx.png" alt="Logo OLX"><br>
-		<h1>Olá, Faça Seu Longin!!!</h1>
+		<h1>Olá, Faça Seu Login!!!</h1>
 	</header>
 
 	<?php
