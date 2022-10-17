@@ -54,7 +54,7 @@
 			</div>
 			<div>
 				<label><strong>Senha:</strong></label>
-				<input type=password name=senha placeholder="Digite sua senha"><br>
+				<input type=password name=senha placeholder="Digite sua senha"><br><br>
 				<input type=submit name=botao value=Entrar>
 			</div>
 		</fieldset>

@@ -135,7 +135,7 @@
     </form>
     <br>
 
-    <div class="voltar2"><a href="relatorio_anun.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
+    <div class="voltar2"><a href="menu.php"><img src="imagens/voltar.png" alt="voltar pagina"></a></div>
 
 </body>
 

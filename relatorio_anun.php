@@ -28,12 +28,12 @@
     <br>
 
     <form action="relatorio_anun.php?botao=gravar" method="post" name="form1">
-        <fieldset>
+        <fieldset class="relatorio">
             <table width="95%" border="0" align="center">
-                <tr bgcolor="#393FB8">
-                    <td width="18%" align="right"><strong>Nome</strong>:</td>
+                <tr bgcolor="#f88826">
+                    <td width="18%" ><strong>Nome</strong>:</td>
                     <td width="26%"><input type="text" name="nome" placeholder="Nome do anúncio" /></td>
-                    <td width="17%" align="right"><strong>Categoria</strong>:</td>
+                    <td width="17%"><strong>Categoria</strong>:</td>
                     <td width="18%">
                         <?php
                         $query = "SELECT id, nome FROM categoria ORDER BY nome";
@@ -62,12 +62,14 @@
     <?php if (@$_REQUEST['botao'] == "Gerar") { ?>
 
         <table width="95%" border="1" align="center">
-            <tr bgcolor="#393FB8">
+            <tr bgcolor="#f88826">
                 <th width="5%">ID</th>
                 <th width="30%">Nome</th>
                 <th width="5%">Valor</th>
                 <th width="15%">Descrição</th>
+                <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
                 <th width="15%">Status</th>
+                <?php } ?>
                 <th width="15%">Opções</th>
             </tr>
 
@@ -94,7 +96,9 @@
                     <?php if ($_SESSION["UsuarioNivel"] == "ADM") { ?>
                         <th width="15%"><?php echo $coluna['status']; ?></th>
                     <?php } ?>
+                    <?php if ($_SESSION["UsuarioNivel"] == "ADM" || $_SESSION["id_usuario"] == $coluna['id_usuario']) { ?>
                     <th><a href="cadastro_anun.php?pag=cadastro_anun&id=<?php echo $coluna['id']; ?>">editar</a></th>
+                    <?php } ?>
                 </tr>
 
             <?php
